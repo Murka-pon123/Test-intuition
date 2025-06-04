@@ -1,0 +1,257 @@
+<!DOCTYPE html><html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Тест на Интуицию</title>
+  <style>
+  img {
+    border-radius: 10px;
+  }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }@keyframes pulse {
+  0% { box-shadow: 0 0 5px #00f0ff; }
+  50% { box-shadow: 0 0 20px #00f0ff; }
+  100% { box-shadow: 0 0 5px #00f0ff; }
+}
+
+@keyframes glowButton {
+  0% { box-shadow: 0 0 5px #00ffe7, 0 0 10px #00ffe7; }
+  50% { box-shadow: 0 0 20px #00ffe7, 0 0 30px #00ffe7; }
+  100% { box-shadow: 0 0 5px #00ffe7, 0 0 10px #00ffe7; }
+}
+
+@keyframes resultPop {
+  0% { transform: scale(0.5); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 100vh;
+  animation: fadeIn 1.5s ease;
+}
+
+header {
+  padding: 20px;
+  text-align: center;
+  color: #00ffe7;
+  font-size: 2em;
+  font-weight: bold;
+  text-shadow: 0 0 15px #00ffe7;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+header img {
+  width: 48px;
+  height: 48px;
+  filter: drop-shadow(0 0 8px #00ffe7);
+}
+
+footer {
+  margin: 30px;
+  font-size: 0.9em;
+  color: #aaa;
+  text-align: center;
+  border: #00f0ff solid;
+  border-radius: 10px;
+}
+
+.container {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 50px 40px;
+  border-radius: 25px;
+  box-shadow: 0 0 40px #00f0ff;
+  text-align: center;
+  max-width: 700px;
+  width: 90%;
+  animation: fadeIn 2s ease;
+}
+
+h1 {
+  font-size: 2.8em;
+  margin-bottom: 25px;
+  color: #00ffe7;
+  text-shadow: 0 0 10px #00ffe7, 0 0 25px #00ffe7;
+  animation: pulse 2s infinite;
+  border-radius: 10px;
+}
+
+.question {
+  font-size: 1.5em;
+  margin: 30px 0 20px;
+  animation: fadeIn 0.5s ease;
+  line-height: 1.4;
+}
+
+.btn {
+  background: #00ffe7;
+  color: #000;
+  border: none;
+  padding: 14px 30px;
+  margin: 10px;
+  border-radius: 15px;
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  animation: fadeIn 0.8s ease;
+  font-weight: 600;
+  min-width: 120px;
+}
+
+.btn:hover {
+  transform: scale(1.07);
+  box-shadow: 0 0 20px #00ffe7;
+}
+
+.btn.restart {
+  animation: glowButton 2s infinite;
+}
+
+.result {
+  font-size: 1.8em;
+  color: #00ffae;
+  margin-top: 30px;
+  animation: resultPop 0.8s ease-out;
+  font-weight: bold;
+  text-shadow: 0 0 10px #00ffae;
+}
+
+#options {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+}
+
+  </style>
+</head>
+<body>
+  <header>
+    <img src="Kiv4ik_logo.jpg" alt="Логотип">
+    Kiv4ik_studio
+  </header>  <div class="container">
+    <h1>Проверь свою Интуицию</h1>
+    <div id="quiz">
+      <div class="question" id="question">Нажми "Начать", чтобы начать тест!</div>
+      <div id="options"></div>
+      <button class="btn" id="startBtn" onclick="nextQuestion()">Начать</button>
+    </div>
+    <div class="result" id="result"></div>
+    <div id="restartContainer"></div>
+  </div>  <footer>
+    <div style="margin: 30px 0; text-align: center;">
+  <h2 style="color: #00ffe7; text-shadow: 0 0 10px #00ffe7;">Наши соц сети</h2>
+  <a href="https://t.me/Kiv4ik_studio" target="_blank" style="display: inline-block; margin-top: 15px;">
+    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Telegram" style="width: 60px; height: 60px; filter: drop-shadow(0 0 10px #00ffe7); transition: transform 0.2s;">
+  </a>
+</div>
+    © тест сайт на интуицию. Все права защищены.
+  </footer>  <script>
+    const questions = [
+      'Выбери число от 1 до 3. Где прячется шарик?',
+      'Куда повернёт монета — орёл или решка?',
+      'Выбери цвет: красный, синий или зелёный?',
+      'Выбери дверь: левая, средняя или правая?',
+      'На какой руке монета — левая или правая?',
+      'Что выберет случай: круг, квадрат или треугольник?',
+      'Какое число выпадет: 4, 5 или 6?',
+      'Выбери направление: вверх, вниз или вбок?',
+      'Кот или собака?',
+      'Ночь или день?',
+      'Случайный фрукт: яблоко, банан или апельсин?',
+      'Скрытая карта: черви, пики или бубны?',
+      'Какая форма появится: ромб, сердце или звезда?',
+      'Выбери случайный звук: хлопок, звон или шорох?',
+      'Кто постучит в дверь: человек, ветер или кошка?'
+    ];
+
+    const answers = [
+      '2',
+      'орёл',
+      'синий',
+      'средняя',
+      'левая',
+      'круг',
+      '5',
+      'вбок',
+      'кот',
+      'ночь',
+      'яблоко',
+      'пики',
+      'звезда',
+      'звон',
+      'ветер'
+    ];
+
+    const optionsList = [
+      ['1', '2', '3'],
+      ['орёл', 'решка'],
+      ['красный', 'синий', 'зелёный'],
+      ['левая', 'средняя', 'правая'],
+      ['левая', 'правая'],
+      ['круг', 'квадрат', 'треугольник'],
+      ['4', '5', '6'],
+      ['вверх', 'вниз', 'вбок'],
+      ['кот', 'собака'],
+      ['ночь', 'день'],
+      ['яблоко', 'банан', 'апельсин'],
+      ['черви', 'пики', 'бубны'],
+      ['ромб', 'сердце', 'звезда'],
+      ['хлопок', 'звон', 'шорох'],
+      ['человек', 'ветер', 'кошка']
+    ];
+
+    let currentQuestion = -1;
+    let correct = 0;
+
+    function nextQuestion(selected = null) {
+      if (currentQuestion === -1) {
+        document.getElementById('startBtn').style.display = 'none';
+      }
+
+      if (selected !== null && selected === answers[currentQuestion]) {
+        correct++;
+      }
+
+      currentQuestion++;
+
+      if (currentQuestion < questions.length) {
+        document.getElementById('question').innerText = questions[currentQuestion];
+        const opts = optionsList[currentQuestion];
+        document.getElementById('options').innerHTML = opts.map(opt => 
+          `<button class='btn' onclick="nextQuestion('${opt}')">${opt}</button>`
+        ).join('');
+      } else {
+        let resultText = correct === questions.length ? 
+          'Ты настоящий ЭКСТРАСЕНС! 🔮' :
+          `Ты угадал ${correct} из ${questions.length}. Попробуй снова!`;
+        document.getElementById('quiz').style.display = 'none';
+        document.getElementById('result').innerText = resultText;
+
+        const stats = JSON.parse(localStorage.getItem('intuitionStats') || '[]');
+        stats.push({ correct, total: questions.length, date: new Date().toLocaleString() });
+        localStorage.setItem('intuitionStats', JSON.stringify(stats));
+
+        document.getElementById('restartContainer').innerHTML = `
+          <button class='btn restart' onclick='location.reload()'>Играть снова</button>
+        `;
+      }
+    }
+
+    window.addEventListener('load', () => {
+      const stats = JSON.parse(localStorage.getItem('intuitionStats') || '[]');
+      console.log('Статистика прошлых попыток:', stats);
+    });
+  </script></body>
+</html>
